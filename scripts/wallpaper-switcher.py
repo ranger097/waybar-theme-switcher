@@ -25,7 +25,7 @@ def wallpapers():
         wallpaper_state = state_management.readlines()
         cache = wallpaper_state[0]
         num = int(cache)
-        if num >= 15:
+        if num > len(wallpaperDict):
             num = 1
             wallpaper_state[0] = str(num)
             with open(state, 'w') as state_management:
@@ -53,7 +53,7 @@ def wallpapers():
             x = wallpaperDict[num]
 
             try:
-                subprocess.run(["swww", "img", x], check=True)
+                subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
 
             except:
                 print("Please check your wallpaper paths!")
