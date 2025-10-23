@@ -16,8 +16,7 @@ wallpaperDict = {
     13 : "/home/ranger/waybar-theme-switcher/wallpapers/wallpaper-theme-converter4.png",
     14 : "/home/ranger/waybar-theme-switcher/wallpapers/wallpaper-theme-converter5.png",
     15 : "/home/ranger/waybar-theme-switcher/wallpapers/wallpaper.png"
-
-    }
+}
 
 def wallpapers():
     state = "/home/ranger/waybar-theme-switcher/state/wallpapers.txt"
@@ -34,7 +33,8 @@ def wallpapers():
             x = wallpaperDict[num]
 
             try:
-                subprocess.run(["swww", "img", x], check=True)
+                subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
+                subprocess.run(["wal", "-i", x], check=True)
 
             except:
                 print("Please check your wallpaper paths!")
@@ -54,7 +54,8 @@ def wallpapers():
 
             try:
                 subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
-
+                subprocess.run(["wal", "-i", x], check=True)
+                
             except:
                 print("Please check your wallpaper paths!")
                 print("- ranger097")
