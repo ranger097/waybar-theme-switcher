@@ -100,7 +100,7 @@ def wallpapers():
         wallpaper_state = state_management.readlines()
         cache = wallpaper_state[0]
         num = int(cache)
-        if num > len(wallpaperDict):
+        if num > len(wallpaperDict) or num > 90:
             num = 0
             wallpaper_state[0] = str(num)
             with open(state, 'w') as state_management:
@@ -108,27 +108,24 @@ def wallpapers():
    
             x = wallpaperDict[num]
 
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
-            subprocess.run(["wal", "-i", x], check=True)
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
             
-            print("Please check your wallpaper paths!")
-            print("- ranger097")
+            
 
             wallpapers()
 
-        elif num == 59:
+        elif num == 60:
             
             num = num + 1
-            
             bottom_bar_css = "/home/ranger/.config/waybar/bottom_bar.css"
             top_bar_css = "/home/ranger/.config/waybar/style.css"
             vscode_theme = "/home/ranger/.config/Code/User/settings.json"
             ghostty_theme = "/home/ranger/.config/ghostty/config"
             with open(bottom_bar_css, 'r') as bottom_bar_config:
                 lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(255,240,207,0.8);" + "\n"
-                lines[50] = "background-color: rgba(255,240,207,0.8);" + "\n"
-                lines[89] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                lines[32] = "background-color: rgba(255,240,207,0.6);" + "\n"
+                lines[50] = "background-color: rgba(255,240,207,0.6);" + "\n"
+                lines[89] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 lines[31] = "color: #ED1651;" + "\n"
                 lines[51] = "color: #ED1651;" + "\n"
                 lines[91] = "color: #ED1651;" + "\n"
@@ -161,41 +158,41 @@ def wallpapers():
             with open(top_bar_css, "r") as top_bar_config:
                 top_bar_lines = top_bar_config.readlines()
 
-                top_bar_lines[187] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[187] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[188] = "color: #ed1651;" + "\n"
-                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[15] =  "color: #ed1651;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[116] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[117] = "color: #ed1651;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[132] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[133] = "color: #ed1651;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[203] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[205] = "color: #ed1651;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[149] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[150] = "color: #ed1651;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[307] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[308] = "color: #ed1651;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[323] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[324] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[39] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[41] = "color: #ed1651;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[356] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[357] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[340] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[341] = "color: #ed1651;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[290] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[291] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[273] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[274] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[256] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[257] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[239] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[240] = "color: #000000;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[171] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[173] = "color: #ed1651;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[101] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[102] = "color: #ed1651;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[84] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[85] = "color: #ed1651;" + "\n"
 
             with open(top_bar_css, "w") as top_bar_config:
@@ -204,19 +201,15 @@ def wallpapers():
             print(cache)
    
             x = wallpaperDict[num]
-            subprocess.run(["wal", "-i", x])
             subprocess.run(["pkill", "waybar"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
             
-
-            print("Please check your wallpaper paths!")
-            print("- ranger097")
             
         elif num == 69:
-            
-            
+
+            num = num + 1
             
             bottom_bar_css = "/home/ranger/.config/waybar/bottom_bar.css"
             top_bar_css = "/home/ranger/.config/waybar/style.css"
@@ -224,9 +217,9 @@ def wallpapers():
             ghostty_theme = "/home/ranger/.config/ghostty/config"
             with open(bottom_bar_css, 'r') as bottom_bar_config:
                 lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(255,0,60,0.8);" + "\n"
-                lines[50] = "background-color: rgba(255,0,60,0.8);" + "\n"
-                lines[89] = "background-color: rgba(255,0,60,0.8);" + "\n"
+                lines[32] = "background-color: rgba(255,0,60,0.6);" + "\n"
+                lines[50] = "background-color: rgba(255,0,60,0.6);" + "\n"
+                lines[89] = "background-color: rgba(255,0,60,0.6);" + "\n"
                 lines[31] = "color: #000000;" + "\n"
                 lines[51] = "color: #000000;" + "\n"
                 lines[91] = "color: #000000;" + "\n"
@@ -259,41 +252,41 @@ def wallpapers():
             with open(top_bar_css, "r") as top_bar_config:
                 top_bar_lines = top_bar_config.readlines()
 
-                top_bar_lines[187] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[187] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[188] = "color: #ed1651;" + "\n"
-                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[15] =  "color: #ed1651;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[116] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[117] = "color: #ed1651;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[132] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[133] = "color: #ed1651;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[203] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[205] = "color: #ed1651;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[149] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[150] = "color: #ed1651;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[307] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[308] = "color: #ed1651;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[323] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[324] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[39] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[41] = "color: #ed1651;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[356] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[357] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[340] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[341] = "color: #ed1651;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[290] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[291] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[273] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[274] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[256] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[257] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[239] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[240] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[171] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[173] = "color: #ed1651;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[101] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[102] = "color: #ed1651;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[84] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[85] = "color: #ed1651;" + "\n"
 
             with open(top_bar_css, "w") as top_bar_config:
@@ -302,16 +295,11 @@ def wallpapers():
             print(cache)
    
             x = wallpaperDict[num]
-            subprocess.run(["wal", "-i", x])
             subprocess.run(["pkill", "waybar"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
             
-
-            print("Please check your wallpaper paths!")
-            print("- ranger097")
-            num = num + 1
         elif num == 87:
             num = num + 1
             
@@ -322,9 +310,9 @@ def wallpapers():
             ghostty_theme = "/home/ranger/.config/ghostty/config"
             with open(bottom_bar_css, 'r') as bottom_bar_config:
                 lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(254,185,144,0.7);" + "\n"
-                lines[50] = "background-color: rgba(254,185,144,0.7);" + "\n"
-                lines[89] = "background-color: rgba(254,185,144,0.7);" + "\n"
+                lines[32] = "background-color: rgba(254,185,144,0.6);" + "\n"
+                lines[50] = "background-color: rgba(254,185,144,0.6);" + "\n"
+                lines[89] = "background-color: rgba(254,185,144,0.6);" + "\n"
                 lines[31] = "color: #1B1811;" + "\n"
                 lines[51] = "color: #1B1811;" + "\n"
                 lines[91] = "color: #1B1811;" + "\n"
@@ -357,41 +345,41 @@ def wallpapers():
             with open(top_bar_css, "r") as top_bar_config:
                 top_bar_lines = top_bar_config.readlines()
 
-                top_bar_lines[187] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[187] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[188] = "color: #FEB990;" + "\n"
                 top_bar_lines[14] =  "background-color: rgba(137,98,74,0.0);" + "\n" #keep-transparent
                 top_bar_lines[15] =  "color: #1B1811;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[116] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[117] = "color: #1B1811;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[132] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[133] = "color: #1B1811;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[203] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[205] = "color: #FEB990;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[149] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[150] = "color: #1B1811;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[307] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[308] = "color: #1B1811;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[323] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[324] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[39] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[41] = "color: #1B1811;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[356] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[357] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[340] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[341] = "color: #1B1811;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[290] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[291] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[273] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[274] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[256] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[257] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[239] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[240] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[171] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[173] = "color: #FEB990;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[101] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[102] = "color: #FEB990;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(137,98,74,0.7);" + "\n"
+                top_bar_lines[84] = "background-color: rgba(137,98,74,0.6);" + "\n"
                 top_bar_lines[85] = "color: #1B1811;" + "\n"
                 top_bar_lines[56] = "color: #FEB990;" + "\n"
 
@@ -400,21 +388,17 @@ def wallpapers():
 
             print(cache)
    
+            
             x = wallpaperDict[num]
-            subprocess.run(["wal", "-i", x])
             subprocess.run(["pkill", "waybar"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
-            
-
-            print("Please check your wallpaper paths!")
-            print("- ranger097")
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
             
             
         elif num == 63:
             
-            num = num + 1
+            
             
             bottom_bar_css = "/home/ranger/.config/waybar/bottom_bar.css"
             top_bar_css = "/home/ranger/.config/waybar/style.css"
@@ -422,9 +406,9 @@ def wallpapers():
             ghostty_theme = "/home/ranger/.config/ghostty/config"
             with open(bottom_bar_css, 'r') as bottom_bar_config:
                 lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(255,240,207,0.8);" + "\n"
-                lines[50] = "background-color: rgba(255,240,207,0.8);" + "\n"
-                lines[89] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                lines[32] = "background-color: rgba(255,240,207,0.6);" + "\n"
+                lines[50] = "background-color: rgba(255,240,207,0.6);" + "\n"
+                lines[89] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 lines[31] = "color: #ED1651;" + "\n"
                 lines[51] = "color: #ED1651;" + "\n"
                 lines[91] = "color: #ED1651;" + "\n"
@@ -457,41 +441,41 @@ def wallpapers():
             with open(top_bar_css, "r") as top_bar_config:
                 top_bar_lines = top_bar_config.readlines()
 
-                top_bar_lines[187] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[187] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[188] = "color: #ed1651;" + "\n"
-                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[15] =  "color: #ed1651;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[116] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[117] = "color: #ed1651;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[132] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[133] = "color: #ed1651;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[203] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[205] = "color: #ed1651;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[149] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[150] = "color: #ed1651;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[307] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[308] = "color: #ed1651;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[323] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[324] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[39] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[41] = "color: #ed1651;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[356] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[357] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[340] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[341] = "color: #ed1651;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[290] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[291] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[273] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[274] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[256] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[257] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[239] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[240] = "color: #000000;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[171] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[173] = "color: #ed1651;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[101] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[102] = "color: #ed1651;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(255,240,207,0.8);" + "\n"
+                top_bar_lines[84] = "background-color: rgba(255,240,207,0.6);" + "\n"
                 top_bar_lines[85] = "color: #ed1651;" + "\n"
 
             with open(top_bar_css, "w") as top_bar_config:
@@ -500,16 +484,11 @@ def wallpapers():
             print(cache)
    
             x = wallpaperDict[num]
-            subprocess.run(["wal", "-i", x])
             subprocess.run(["pkill", "waybar"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
-            
-
-            print("Please check your wallpaper paths!")
-            print("- ranger097")
-
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+            num = num + 1
         else:
             num = num + 1
             wallpaper_state[0] = str(num)
@@ -519,10 +498,8 @@ def wallpapers():
             print(cache)
    
             x = wallpaperDict[num]
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"], check=True)
-            #subprocess.run(["wal", "-i", x], check=True)
-            print("Please check your wallpaper paths!")
-            print("- ranger097")
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+            
 
 wallpapers()
 
