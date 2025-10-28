@@ -105,7 +105,7 @@ vscode_theme = "/home/ranger/.config/Code/User/settings.json"
 ghostty_theme = "/home/ranger/.config/ghostty/config"
 
 
-def themeSwitcher(blurredBackground,iconBackground,hoverBackground,hoverForeground,widgetIconBackground,widgetIconForeground,iconForeground,textForeground):
+def themeSwitcher(blurredBackground,iconBackground,hoverBackground,hoverForeground,widgetIconBackground,widgetIconForeground,iconForeground,textForeground,vscodeBackground,ghosttyBackground,ghosttyForeground):
     with open(bottom_bar_css, 'r') as bottom_bar_config:
         lines = bottom_bar_config.readlines()
         lines[8] = f"{blurredBackground}" + "\n" #waybarBackground
@@ -167,55 +167,63 @@ def themeSwitcher(blurredBackground,iconBackground,hoverBackground,hoverForegrou
    
     with open(top_bar_css, "r") as top_bar_config:
         top_bar_lines = top_bar_config.readlines()
-        top_bar_lines[187] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[188] = "color: #ed1651;" + "\n"
-        top_bar_lines[14] =  "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[15] =  "color: #ed1651;" + "\n"
-        top_bar_lines[116] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[117] = "color: #ed1651;" + "\n"
-        top_bar_lines[132] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[133] = "color: #ed1651;" + "\n"
-        top_bar_lines[203] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[205] = "color: #ed1651;" + "\n"
-        top_bar_lines[149] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[150] = "color: #ed1651;" + "\n"
-        top_bar_lines[307] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[308] = "color: #ed1651;" + "\n"
-        top_bar_lines[323] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[324] = "color: #ed1651;" + "\n" #icon
-        top_bar_lines[39] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[41] = "color: #ed1651;" + "\n"
-        top_bar_lines[356] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[357] = "color: #ed1651;" + "\n" #icon
-        top_bar_lines[340] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[341] = "color: #ed1651;" + "\n"
-        top_bar_lines[290] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[291] = "color: #ed1651;" + "\n" #icon
-        top_bar_lines[273] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[274] = "color: #ed1651;" + "\n" #icon
-        top_bar_lines[256] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[257] = "color: #ed1651;" + "\n" #icon
-        top_bar_lines[239] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[240] = "color: #000000;" + "\n" #icon
-        top_bar_lines[171] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[173] = "color: #ed1651;" + "\n" 
-        top_bar_lines[101] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[102] = "color: #ed1651;" + "\n" 
-        top_bar_lines[84] = "background-color: rgba(255,240,207,0.6);" + "\n"
-        top_bar_lines[85] = "color: #ed1651;" + "\n"
-
+        top_bar_lines[1] = f"{blurredBackground}" + "\n"  #windowBackground
+        top_bar_lines[8] = f"{widgetIconBackground}" + "\n" #workspaceBackground
+        top_bar_lines[52] = f"{widgetIconBackground}" + "\n" #activeWorkspaceBackground
+        top_bar_lines[81] = f"{widgetIconBackground}" + "\n" #clockBackground
+        top_bar_lines[101] = f"{widgetIconBackground}" + "\n" #batteryBackground
+        top_bar_lines[158] = f"{widgetIconBackground}" + "\n" #networkBackground
+        top_bar_lines[186] = f"{widgetIconBackground}" + "\n" #customLogoBackground
+        top_bar_lines[222] = f"{widgetIconBackground}" + "\n" #mprisBackground
+        top_bar_lines[303] = f"{widgetIconBackground}" + "\n" #wifiIconBackground
+        top_bar_lines[323] = f"{widgetIconBackground}" + "\n" #customAudioIconBackground
+        top_bar_lines[343] = f"{widgetIconBackground}" + "\n" #customAudioBackground
+        top_bar_lines[362] = f"{widgetIconBackground}" + "\n" #customBluetoothBackground
+        top_bar_lines[382] = f"{widgetIconBackground}" + "\n" #customBluetoothLabelBackground
+        top_bar_lines[402] = f"{widgetIconBackground}" + "\n" #customClockIconBackground
+        top_bar_lines[422] = f"{widgetIconBackground}" + "\n" #windowTitleBackground
+        top_bar_lines[443] = f"{widgetIconBackground}" + "\n" #hyprshotBackground
+        top_bar_lines[464] = f"{widgetIconBackground}" + "\n" #hyprpickerBackground
+        top_bar_lines[485] = f"{widgetIconBackground}" + "\n" #customShurikenBackground
+        top_bar_lines[506] = f"{widgetIconBackground}" + "\n" #customPowerBackground
+        top_bar_lines[9] = f"{widgetIconForeground}" + "\n" #workspaceIconForeground
+        top_bar_lines[53] = f"{widgetIconForeground}" + "\n" #workspaceActiveIconForeground
+        top_bar_lines[58] = f"{widgetIconForeground}" + "\n" #workspaceUrgentIconForeground
+        top_bar_lines[102] = f"{widgetIconForeground}" + "\n" #batteryForeground
+        top_bar_lines[304] = f"{widgetIconForeground}" + "\n" #wifiIconForeground
+        top_bar_lines[324] = f"{widgetIconForeground}" + "\n" #audioIconForeground
+        top_bar_lines[363] = f"{widgetIconForeground}" + "\n" #customBluetoothIconForeground
+        top_bar_lines[444] = f"{widgetIconForeground}" + "\n" #hyprshotIconForeground
+        top_bar_lines[465] = f"{widgetIconForeground}" + "\n" #hyprpickerIconForeground
+        top_bar_lines[486] = f"{widgetIconForeground}" + "\n" #shurikenIconForeground
+        top_bar_lines[507] = f"{widgetIconForeground}" + "\n" #customPowerIconForeground
+        top_bar_lines[82] = f"{textForeground}" + "\n" #clockTextForeground
+        top_bar_lines[159] = f"{textForeground}" + "\n" #networkTextForeground
+        top_bar_lines[187] = f"{textForeground}" + "\n" #customLogoTextForeground
+        top_bar_lines[223] = f"{textForeground}" + "\n" #mprisTextForeground
+        top_bar_lines[344] = f"{textForeground}" + "\n" #customAudioTextForeground
+        top_bar_lines[383] = f"{textForeground}" + "\n" #customBluetoothLabel
+        
     with open(top_bar_css, "w") as top_bar_config:
         top_bar_config.writelines(top_bar_lines)
 
     with open(vscode_theme, "r") as vscode_config:
         vscode_lines = vscode_config.readlines()
-        vscode_lines[155] = '"editor.background": "#FFF0CFCC",' + "\n"
-        vscode_lines[156] = '"activityBar.background": "#FFF0CFCC",' + "\n"
-        vscode_lines[157] = '"sideBar.background": "#FFF0CFCC",' + "\n"
-        vscode_lines[158] = '"editorGroupHeader.tabsBackground": "#FFF0CFCC",' + "\n"
+        vscode_lines[155] = f'"editor.background": "{vscodeBackground}",' + "\n" 
+        vscode_lines[156] = f'"activityBar.background": "{vscodeBackground}",' + "\n"
+        vscode_lines[157] = f'"sideBar.background": "{vscodeBackground}",' + "\n"
+        vscode_lines[158] = f'"editorGroupHeader.tabsBackground": "{vscodeBackground}",' + "\n"
 
     with open(vscode_theme, "w") as vscode_config:
         vscode_config.writelines(vscode_lines)
+
+    with open(ghostty_theme, "r") as ghostty_config:
+        ghostty_lines = ghostty_config.readlines()
+        ghostty_lines[43] = f'background = "{ghosttyBackground}"' + "\n"
+        ghostty_lines[44] = f'foreground = "{ghosttyForeground}"' + "\n"
+
+    with open(ghostty_theme, "w") as ghostty_config:
+        ghostty_config.writelines(ghostty_lines)
 
 
 def wallpapers():
