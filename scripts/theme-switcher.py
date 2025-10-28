@@ -1,6 +1,8 @@
 #ranger097
-#so far i only need subprocess idk but im sure there is a library that can do this easier
+#so far i only need subprocess and pillow idk but im sure there is a library that can do this easier
 import subprocess
+import PIL
+from PIL import ImageColor
 
 #make sure to specify the correct path to wallpapers here
 wallpaperDict = { 
@@ -98,111 +100,127 @@ wallpaperDict = {
 }
 
 #specify configs globally so lines can be changed in functions
-state = "/home/ranger/Github/waybar-theme-switcher/state/wallpapers.txt"
+state = "/home/ranger/Github/waybar-theme-switcher/state/themes.txt"
 bottom_bar_css = "/home/ranger/.config/waybar/bottom_bar.css"
 top_bar_css = "/home/ranger/.config/waybar/style.css"
 vscode_theme = "/home/ranger/.config/Code/User/settings.json"
 ghostty_theme = "/home/ranger/.config/ghostty/config"
+hex_colors = "/home/ranger/.cache/wal/colors"
 
-
-def themeSwitcher(blurredBackground,iconBackground,hoverBackground,hoverForeground,widgetIconBackground,widgetIconForeground,iconForeground,textForeground,vscodeBackground,ghosttyBackground,ghosttyForeground):
+#this gets the colors from pywal
+with open(hex_colors, "r") as wal_colors:
+    wal_colors_lines = wal_colors.readlines()
+    blurredBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
+    iconBackground  = ImageColor.getcolor(wal_colors_lines[1], "RGB")
+    hoverBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
+    widgetIconBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
+    widgetIconForeground = wal_colors_lines[3].strip()
+    iconForeground = wal_colors_lines[6].strip()
+    textForeground = wal_colors_lines[7].strip()
+    vscodeBackground = wal_colors_lines[0].strip()
+    ghosttyBackground = wal_colors_lines[0].strip()
+    ghosttyForeground = wal_colors_lines[4].strip()
+    hoverForeground = wal_colors_lines[9].strip()
+    
+def themeSwitcher():
+    
     with open(bottom_bar_css, 'r') as bottom_bar_config:
         lines = bottom_bar_config.readlines()
-        lines[8] = f"{blurredBackground}" + "\n" #waybarBackground
-        lines[29] = f"{iconBackground}" + "\n" #vscodeIconBackground
-        lines[46] = f"{iconBackground}" + "\n" #yt-musicIconBackground
-        lines[64] = f"{iconBackground}" + "\n" #youtubeIconBackground
-        lines[82] = f"{iconBackground}" + "\n" #ryujinxIconBackground
-        lines[100] = f"{iconBackground}" + "\n" #discordIconBackground
-        lines[117] = f"{iconBackground}" + "\n" #steamIconBackground
-        lines[134] = f"{iconBackground}" + "\n" #dolphinIconBackground
-        lines[153] = f"{iconBackground}" + "\n" #gimpIconBackground
-        lines[170] = f"{iconBackground}" + "\n" #kdenliveIconBackground
-        lines[187] = f"{iconBackground}" + "\n" #inkscrapeIconBackground
-        lines[204] = f"{iconBackground}" + "\n" #ghosttyIconBackground
-        lines[221] = f"{iconBackground}" + "\n" #unityIconBackground
-        lines[238] = f"{iconBackground}" + "\n" #blenderIconBackground
-        lines[255] = f"{iconBackground}" + "\n" #libreofficeIconBackground
-        lines[272] = f"{iconBackground}" + "\n" #obsIconBackground
-        lines[289] = f"{iconBackground}" + "\n" #shortwaveIconBackground
-        lines[306] = f"{iconBackground}" + "\n" #obsidianIconBackground
-        lines[322] = f"{iconBackground}" + "\n" #godotIconBackground
-        lines[339] = f"{iconBackground}" + "\n" #ardourIconBackground
-        lines[356] = f"{iconBackground}" + "\n" #btdbattlesIconBackground
-        lines[373] = f"{iconBackground}" + "\n" #qt6settingsIconBackground 
-        lines[390] = f"{iconBackground}" + "\n" #theFinalsIconBackground
-        lines[408] = f"{iconBackground}" + "\n" #personaIconBackground
-        lines[425] = f"{iconBackground}" + "\n" #minecraftIconBackground
-        lines[442] = f"{iconBackground}" + "\n" #firefoxIconBackground
-        lines[472] = f"{hoverBackground}" + "\n" #hoverIconBackground
-        lines[31] = f"{iconForeground}" + "\n" #vscodeIconForeground
-        lines[48] = f"{iconForeground}" + "\n" #yt-musicIconForeground
-        lines[66] = f"{iconForeground}" + "\n" #youtubeIconForeground
-        lines[84] = f"{iconForeground}" + "\n" #ryujinxIconForeground
-        lines[102] = f"{iconForeground}" + "\n" #discordIconForeground
-        lines[119] = f"{iconForeground}" + "\n" #steamIconForeground
-        lines[136] = f"{iconForeground}" + "\n" #dolphinIconForeground
-        lines[155] = f"{iconForeground}" + "\n" #gimpIconForeground
-        lines[172] = f"{iconForeground}" + "\n" #kdenliveIconForeground
-        lines[189] = f"{iconForeground}" + "\n" #inkscapeIconForeground
-        lines[206] = f"{iconForeground}" + "\n" #ghosttyIconForeground
-        lines[223] = f"{iconForeground}" + "\n" #unityIconForeground
-        lines[240] = f"{iconForeground}" + "\n" #blenderIconForeground
-        lines[257] = f"{iconForeground}" + "\n" #libreofficeIconForeground
-        lines[274] = f"{iconForeground}" + "\n" #obsIconForeground
-        lines[291] = f"{iconForeground}" + "\n" #shortwaveIconForeground
-        lines[308] = f"{iconForeground}" + "\n" #obsidianIconForeground
-        lines[325] = f"{iconForeground}" + "\n" #godotIconForeground
-        lines[341] = f"{iconForeground}" + "\n" #ardourIconForeground
-        lines[358] = f"{iconForeground}" + "\n" #btdbattlesIconForeground
-        lines[375] = f"{iconForeground}" + "\n" #qt6settingsIconForeground
-        lines[392] = f"{iconForeground}" + "\n" #thefinalsIconForeground
-        lines[410] = f"{iconForeground}" + "\n" #personaIconForeground
-        lines[427] = f"{iconForeground}" + "\n" #minecraftIconForeground
-        lines[444] = f"{iconForeground}" + "\n" #firefoxIconForeground
-        lines[473] = f"{hoverForeground}" + "\n" #hoverIconForeground
+        lines[8] = f"background-color: rgba{blurredBackground};" + "\n" #waybarBackground
+        lines[29] = f"background-color: rgba{iconBackground};" + "\n" #vscodeIconBackground
+        lines[46] = f"background-color: rgba{iconBackground};" + "\n" #yt-musicIconBackground
+        lines[64] = f"background-color: rgba{iconBackground};" + "\n" #youtubeIconBackground
+        lines[82] = f"background-color: rgba{iconBackground};" + "\n" #ryujinxIconBackground
+        lines[100] = f"background-color: rgba{iconBackground};" + "\n" #discordIconBackground
+        lines[117] = f"background-color: rgba{iconBackground};" + "\n" #steamIconBackground
+        lines[134] = f"background-color: rgba{iconBackground};" + "\n" #dolphinIconBackground
+        lines[153] = f"background-color: rgba{iconBackground};" + "\n" #gimpIconBackground
+        lines[170] = f"background-color: rgba{iconBackground};" + "\n" #kdenliveIconBackground
+        lines[187] = f"background-color: rgba{iconBackground};" + "\n" #inkscrapeIconBackground
+        lines[204] = f"background-color: rgba{iconBackground};" + "\n" #ghosttyIconBackground
+        lines[221] = f"background-color: rgba{iconBackground};" + "\n" #unityIconBackground
+        lines[238] = f"background-color: rgba{iconBackground};" + "\n" #blenderIconBackground
+        lines[255] = f"background-color: rgba{iconBackground};" + "\n" #libreofficeIconBackground
+        lines[272] = f"background-color: rgba{iconBackground};" + "\n" #obsIconBackground
+        lines[289] = f"background-color: rgba{iconBackground};" + "\n" #shortwaveIconBackground
+        lines[306] = f"background-color: rgba{iconBackground};" + "\n" #obsidianIconBackground
+        lines[322] = f"background-color: rgba{iconBackground};" + "\n" #godotIconBackground
+        lines[339] = f"background-color: rgba{iconBackground};" + "\n" #ardourIconBackground
+        lines[356] = f"background-color: rgba{iconBackground};" + "\n" #btdbattlesIconBackground
+        lines[373] = f"background-color: rgba{iconBackground};" + "\n" #qt6settingsIconBackground 
+        lines[390] = f"background-color: rgba{iconBackground};" + "\n" #theFinalsIconBackground
+        lines[408] = f"background-color: rgba{iconBackground};" + "\n" #personaIconBackground
+        lines[425] = f"background-color: rgba{iconBackground};" + "\n" #minecraftIconBackground
+        lines[442] = f"background-color: rgba{iconBackground};" + "\n" #firefoxIconBackground
+        lines[472] = f"background-color: rgba{hoverBackground};" +"\n" #hoverIconBackground
+        lines[31] = f"color:{iconForeground};" + "\n" #vscodeIconForeground
+        lines[48] = f"color:{iconForeground};" + "\n" #yt-musicIconForeground
+        lines[66] = f"color:{iconForeground};" + "\n" #youtubeIconForeground
+        lines[84] = f"color:{iconForeground};" + "\n" #ryujinxIconForeground
+        lines[102] = f"color:{iconForeground};" + "\n" #discordIconForeground
+        lines[119] = f"color:{iconForeground};" + "\n" #steamIconForeground
+        lines[136] = f"color:{iconForeground};" + "\n" #dolphinIconForeground
+        lines[155] = f"color:{iconForeground};" + "\n" #gimpIconForeground
+        lines[172] = f"color:{iconForeground};" + "\n" #kdenliveIconForeground
+        lines[189] = f"color:{iconForeground};" + "\n" #inkscapeIconForeground
+        lines[206] = f"color:{iconForeground};" + "\n" #ghosttyIconForeground
+        lines[223] = f"color:{iconForeground};" + "\n" #unityIconForeground
+        lines[240] = f"color:{iconForeground};" + "\n" #blenderIconForeground
+        lines[257] = f"color:{iconForeground};" + "\n" #libreofficeIconForeground
+        lines[274] = f"color:{iconForeground};" + "\n" #obsIconForeground
+        lines[291] = f"color:{iconForeground};" + "\n" #shortwaveIconForeground
+        lines[308] = f"color:{iconForeground};" + "\n" #obsidianIconForeground
+        lines[324] = f"color:{iconForeground};" + "\n" #godotIconForeground
+        lines[341] = f"color:{iconForeground};" + "\n" #ardourIconForeground
+        lines[358] = f"color:{iconForeground};" + "\n" #btdbattlesIconForeground
+        lines[375] = f"color:{iconForeground};" + "\n" #qt6settingsIconForeground
+        lines[392] = f"color:{iconForeground};" + "\n" #thefinalsIconForeground
+        lines[410] = f"color:{iconForeground};" + "\n" #personaIconForeground
+        lines[427] = f"color:{iconForeground};" + "\n" #minecraftIconForeground
+        lines[444] = f"color:{iconForeground};" + "\n" #firefoxIconForeground
+        lines[473] = f"color:{hoverForeground};" + "\n" #hoverIconForeground
 
     with open(bottom_bar_css, "w") as bottom_bar_config:
         bottom_bar_config.writelines(lines)
    
     with open(top_bar_css, "r") as top_bar_config:
         top_bar_lines = top_bar_config.readlines()
-        top_bar_lines[1] = f"{blurredBackground}" + "\n"  #windowBackground
-        top_bar_lines[8] = f"{widgetIconBackground}" + "\n" #workspaceBackground
-        top_bar_lines[52] = f"{widgetIconBackground}" + "\n" #activeWorkspaceBackground
-        top_bar_lines[81] = f"{widgetIconBackground}" + "\n" #clockBackground
-        top_bar_lines[101] = f"{widgetIconBackground}" + "\n" #batteryBackground
-        top_bar_lines[158] = f"{widgetIconBackground}" + "\n" #networkBackground
-        top_bar_lines[186] = f"{widgetIconBackground}" + "\n" #customLogoBackground
-        top_bar_lines[222] = f"{widgetIconBackground}" + "\n" #mprisBackground
-        top_bar_lines[303] = f"{widgetIconBackground}" + "\n" #wifiIconBackground
-        top_bar_lines[323] = f"{widgetIconBackground}" + "\n" #customAudioIconBackground
-        top_bar_lines[343] = f"{widgetIconBackground}" + "\n" #customAudioBackground
-        top_bar_lines[362] = f"{widgetIconBackground}" + "\n" #customBluetoothBackground
-        top_bar_lines[382] = f"{widgetIconBackground}" + "\n" #customBluetoothLabelBackground
-        top_bar_lines[402] = f"{widgetIconBackground}" + "\n" #customClockIconBackground
-        top_bar_lines[422] = f"{widgetIconBackground}" + "\n" #windowTitleBackground
-        top_bar_lines[443] = f"{widgetIconBackground}" + "\n" #hyprshotBackground
-        top_bar_lines[464] = f"{widgetIconBackground}" + "\n" #hyprpickerBackground
-        top_bar_lines[485] = f"{widgetIconBackground}" + "\n" #customShurikenBackground
-        top_bar_lines[506] = f"{widgetIconBackground}" + "\n" #customPowerBackground
-        top_bar_lines[9] = f"{widgetIconForeground}" + "\n" #workspaceIconForeground
-        top_bar_lines[53] = f"{widgetIconForeground}" + "\n" #workspaceActiveIconForeground
-        top_bar_lines[58] = f"{widgetIconForeground}" + "\n" #workspaceUrgentIconForeground
-        top_bar_lines[102] = f"{widgetIconForeground}" + "\n" #batteryForeground
-        top_bar_lines[304] = f"{widgetIconForeground}" + "\n" #wifiIconForeground
-        top_bar_lines[324] = f"{widgetIconForeground}" + "\n" #audioIconForeground
-        top_bar_lines[363] = f"{widgetIconForeground}" + "\n" #customBluetoothIconForeground
-        top_bar_lines[444] = f"{widgetIconForeground}" + "\n" #hyprshotIconForeground
-        top_bar_lines[465] = f"{widgetIconForeground}" + "\n" #hyprpickerIconForeground
-        top_bar_lines[486] = f"{widgetIconForeground}" + "\n" #shurikenIconForeground
-        top_bar_lines[507] = f"{widgetIconForeground}" + "\n" #customPowerIconForeground
-        top_bar_lines[82] = f"{textForeground}" + "\n" #clockTextForeground
-        top_bar_lines[159] = f"{textForeground}" + "\n" #networkTextForeground
-        top_bar_lines[187] = f"{textForeground}" + "\n" #customLogoTextForeground
-        top_bar_lines[223] = f"{textForeground}" + "\n" #mprisTextForeground
-        top_bar_lines[344] = f"{textForeground}" + "\n" #customAudioTextForeground
-        top_bar_lines[383] = f"{textForeground}" + "\n" #customBluetoothLabel
+        top_bar_lines[1] = f"background-color: rgba{blurredBackground};" + "\n"  #windowBackground
+        top_bar_lines[8] = f"background-color: rgba{widgetIconBackground};" + "\n" #workspaceBackground
+        top_bar_lines[52] = f"background-color: rgba{widgetIconBackground};" + "\n" #activeWorkspaceBackground
+        top_bar_lines[81] = f"background-color: rgba{widgetIconBackground};" + "\n" #clockBackground
+        top_bar_lines[101] = f"background-color: rgba{widgetIconBackground};" + "\n" #batteryBackground
+        top_bar_lines[158] = f"background-color: rgba{widgetIconBackground};" + "\n" #networkBackground
+        top_bar_lines[186] = f"background-color: rgba{widgetIconBackground};" + "\n" #customLogoBackground
+        top_bar_lines[222] = f"background-color: rgba{widgetIconBackground};" + "\n" #mprisBackground
+        top_bar_lines[303] = f"background-color: rgba{widgetIconBackground};" + "\n" #wifiIconBackground
+        top_bar_lines[323] = f"background-color: rgba{widgetIconBackground};" + "\n" #customAudioIconBackground
+        top_bar_lines[343] = f"background-color: rgba{widgetIconBackground};" + "\n" #customAudioBackground
+        top_bar_lines[362] = f"background-color: rgba{widgetIconBackground};" + "\n" #customBluetoothBackground
+        top_bar_lines[382] = f"background-color: rgba{widgetIconBackground};" + "\n" #customBluetoothLabelBackground
+        top_bar_lines[402] = f"background-color: rgba{widgetIconBackground};" + "\n" #customClockIconBackground
+        top_bar_lines[422] = f"background-color: rgba{widgetIconBackground};" + "\n" #windowTitleBackground
+        top_bar_lines[443] = f"background-color: rgba{widgetIconBackground};" + "\n" #hyprshotBackground
+        top_bar_lines[464] = f"background-color: rgba{widgetIconBackground};" + "\n" #hyprpickerBackground
+        top_bar_lines[485] = f"background-color: rgba{widgetIconBackground};" + "\n" #customShurikenBackground
+        top_bar_lines[506] = f"background-color: rgba{widgetIconBackground};" + "\n" #customPowerBackground
+        top_bar_lines[9] = f"color:{widgetIconForeground};" + "\n" #workspaceIconForeground
+        top_bar_lines[53] = f"color:{widgetIconForeground};" + "\n" #workspaceActiveIconForeground
+        top_bar_lines[58] = f"color:{widgetIconForeground};" + "\n" #workspaceUrgentIconForeground
+        top_bar_lines[102] = f"color:{widgetIconForeground};" + "\n" #batteryForeground
+        top_bar_lines[304] = f"color:{widgetIconForeground};" + "\n" #wifiIconForeground
+        top_bar_lines[324] = f"color:{widgetIconForeground};" + "\n" #audioIconForeground
+        top_bar_lines[363] = f"color:{widgetIconForeground};" + "\n" #customBluetoothIconForeground
+        top_bar_lines[444] = f"color:{widgetIconForeground};" + "\n" #hyprshotIconForeground
+        top_bar_lines[465] = f"color:{widgetIconForeground};" + "\n" #hyprpickerIconForeground
+        top_bar_lines[486] = f"color:{widgetIconForeground};" + "\n" #shurikenIconForeground
+        top_bar_lines[507] = f"color:{widgetIconForeground};" + "\n" #customPowerIconForeground
+        top_bar_lines[82] = f"color:{textForeground};" + "\n" #clockTextForeground
+        top_bar_lines[159] = f"color:{textForeground};" + "\n" #networkTextForeground
+        top_bar_lines[187] = f"color:{textForeground};" + "\n" #customLogoTextForeground
+        top_bar_lines[223] = f"color:{textForeground};" + "\n" #mprisTextForeground
+        top_bar_lines[344] = f"color:{textForeground};" + "\n" #customAudioTextForeground
+        top_bar_lines[383] = f"color:{textForeground};" + "\n" #customBluetoothLabel
         
     with open(top_bar_css, "w") as top_bar_config:
         top_bar_config.writelines(top_bar_lines)
@@ -239,291 +257,22 @@ def wallpapers():
                 state_management.writelines(wallpaper_state[0])
    
             x = wallpaperDict[num]
-
             subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-            
-            
-
             wallpapers()
-
-        elif num == 60:
             
-            num = num + 1
-            
-            with open(bottom_bar_css, 'r') as bottom_bar_config:
-                lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                lines[50] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                lines[89] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                lines[31] = "color: #ED1651;" + "\n"
-                lines[51] = "color: #ED1651;" + "\n"
-                lines[91] = "color: #ED1651;" + "\n"
-            with open(bottom_bar_css, "w") as bottom_bar_config:
-                bottom_bar_config.writelines(lines)
-            
-           
-            wallpaper_state[0] = str(num)
-            with open(state, 'w') as state_management:
+        elif num == 47:
+             wallpaper_state[0] = str(num)
+             with open(state, 'w') as state_management:
                 state_management.writelines(wallpaper_state[0])
-
-            with open(ghostty_theme, "r") as ghostty_config:
-                ghostty_lines = ghostty_config.readlines()
-                ghostty_lines[43] = 'background = "#fff0cf"' + "\n"
-                ghostty_lines[44] = 'foreground = "#ED1651"' + "\n"
-
-            with open(ghostty_theme, "w") as ghostty_config:
-                ghostty_config.writelines(ghostty_lines)
-   
-            with open(vscode_theme, "r") as vscode_config:
-                vscode_lines = vscode_config.readlines()
-                vscode_lines[155] = '"editor.background": "#FFF0CFCC",' + "\n"
-                vscode_lines[156] = '"activityBar.background": "#FFF0CFCC",' + "\n"
-                vscode_lines[157] = '"sideBar.background": "#FFF0CFCC",' + "\n"
-                vscode_lines[158] = '"editorGroupHeader.tabsBackground": "#FFF0CFCC",' + "\n"
-
-            with open(vscode_theme, "w") as vscode_config:
-                vscode_config.writelines(vscode_lines)
-
-            with open(top_bar_css, "r") as top_bar_config:
-                top_bar_lines = top_bar_config.readlines()
-
-                top_bar_lines[187] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[188] = "color: #ed1651;" + "\n"
-                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[15] =  "color: #ed1651;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[117] = "color: #ed1651;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[133] = "color: #ed1651;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[205] = "color: #ed1651;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[150] = "color: #ed1651;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[308] = "color: #ed1651;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[324] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[41] = "color: #ed1651;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[357] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[341] = "color: #ed1651;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[291] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[274] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[257] = "color: #ed1651;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[240] = "color: #000000;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[173] = "color: #ed1651;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[102] = "color: #ed1651;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[85] = "color: #ed1651;" + "\n"
-
-            with open(top_bar_css, "w") as top_bar_config:
-                top_bar_config.writelines(top_bar_lines)
-
-            print(cache)
-   
-            x = wallpaperDict[num]
-            subprocess.run(["pkill", "waybar"])
-            subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
-            subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-            
-            
-        elif num == 69:
-
-            num = num + 1
-            
-            bottom_bar_css = "/home/ranger/.config/waybar/bottom_bar.css"
-            top_bar_css = "/home/ranger/.config/waybar/style.css"
-            vscode_theme = "/home/ranger/.config/Code/User/settings.json"
-            ghostty_theme = "/home/ranger/.config/ghostty/config"
-            with open(bottom_bar_css, 'r') as bottom_bar_config:
-                lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(255,0,60,0.6);" + "\n"
-                lines[50] = "background-color: rgba(255,0,60,0.6);" + "\n"
-                lines[89] = "background-color: rgba(255,0,60,0.6);" + "\n"
-                lines[31] = "color: #000000;" + "\n"
-                lines[51] = "color: #000000;" + "\n"
-                lines[91] = "color: #000000;" + "\n"
-            with open(bottom_bar_css, "w") as bottom_bar_config:
-                bottom_bar_config.writelines(lines)
-            
-           
-            wallpaper_state[0] = str(num)
-            with open(state, 'w') as state_management:
-                state_management.writelines(wallpaper_state[0])
-
-            with open(ghostty_theme, "r") as ghostty_config:
-                ghostty_lines = ghostty_config.readlines()
-                ghostty_lines[43] = 'background = "#fff0cf"' + "\n"
-                ghostty_lines[44] = 'foreground = "#ED1651"' + "\n"
-
-            with open(ghostty_theme, "w") as ghostty_config:
-                ghostty_config.writelines(ghostty_lines)
-   
-            with open(vscode_theme, "r") as vscode_config:
-                vscode_lines = vscode_config.readlines()
-                vscode_lines[155] = '"editor.background": "#FFF0CFCC",' + "\n"
-                vscode_lines[156] = '"activityBar.background": "#FFF0CFCC",' + "\n"
-                vscode_lines[157] = '"sideBar.background": "#FFF0CFCC",' + "\n"
-                vscode_lines[158] = '"editorGroupHeader.tabsBackground": "#FFF0CFCC",' + "\n"
-
-            with open(vscode_theme, "w") as vscode_config:
-                vscode_config.writelines(vscode_lines)
-
-            with open(top_bar_css, "r") as top_bar_config:
-                top_bar_lines = top_bar_config.readlines()
-
-                top_bar_lines[187] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[188] = "color: #ed1651;" + "\n"
-                top_bar_lines[14] =  "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[15] =  "color: #ed1651;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[117] = "color: #ed1651;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[133] = "color: #ed1651;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[205] = "color: #ed1651;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[150] = "color: #ed1651;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[308] = "color: #ed1651;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[324] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[41] = "color: #ed1651;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[357] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[341] = "color: #ed1651;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[291] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[274] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[257] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[240] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[173] = "color: #ed1651;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[102] = "color: #ed1651;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(255,240,207,0.6);" + "\n"
-                top_bar_lines[85] = "color: #ed1651;" + "\n"
-
-            with open(top_bar_css, "w") as top_bar_config:
-                top_bar_config.writelines(top_bar_lines)
-
-            print(cache)
-   
-            x = wallpaperDict[num]
-            subprocess.run(["pkill", "waybar"])
-            subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
-            subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-            
-        elif num == 87:
-            num = num + 1
-            
-            
-            bottom_bar_css = "/home/ranger/.config/waybar/bottom_bar.css"
-            top_bar_css = "/home/ranger/.config/waybar/style.css"
-            vscode_theme = "/home/ranger/.config/Code/User/settings.json"
-            ghostty_theme = "/home/ranger/.config/ghostty/config"
-            with open(bottom_bar_css, 'r') as bottom_bar_config:
-                lines = bottom_bar_config.readlines()
-                lines[32] = "background-color: rgba(254,185,144,0.6);" + "\n"
-                lines[50] = "background-color: rgba(254,185,144,0.6);" + "\n"
-                lines[89] = "background-color: rgba(254,185,144,0.6);" + "\n"
-                lines[31] = "color: #1B1811;" + "\n"
-                lines[51] = "color: #1B1811;" + "\n"
-                lines[91] = "color: #1B1811;" + "\n"
-            with open(bottom_bar_css, "w") as bottom_bar_config:
-                bottom_bar_config.writelines(lines)
-            
-           
-            wallpaper_state[0] = str(num)
-            with open(state, 'w') as state_management:
-                state_management.writelines(wallpaper_state[0])
-
-            with open(ghostty_theme, "r") as ghostty_config:
-                ghostty_lines = ghostty_config.readlines()
-                ghostty_lines[43] = 'background = "#89624A"' + "\n"
-                ghostty_lines[44] = 'foreground = "#1B1811"' + "\n"
-
-            with open(ghostty_theme, "w") as ghostty_config:
-                ghostty_config.writelines(ghostty_lines)
-   
-            with open(vscode_theme, "r") as vscode_config:
-                vscode_lines = vscode_config.readlines()
-                vscode_lines[155] = '"editor.background": "#FEB990",' + "\n"
-                vscode_lines[156] = '"activityBar.background": "#FEB990",' + "\n"
-                vscode_lines[157] = '"sideBar.background": "#FEB990",' + "\n"
-                vscode_lines[158] = '"editorGroupHeader.tabsBackground": "#FEB990",' + "\n"
-
-            with open(vscode_theme, "w") as vscode_config:
-                vscode_config.writelines(vscode_lines)
-
-            with open(top_bar_css, "r") as top_bar_config:
-                top_bar_lines = top_bar_config.readlines()
-
-                top_bar_lines[187] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[188] = "color: #FEB990;" + "\n"
-                top_bar_lines[14] =  "background-color: rgba(137,98,74,0.0);" + "\n" #keep-transparent
-                top_bar_lines[15] =  "color: #1B1811;" + "\n"
-                top_bar_lines[116] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[117] = "color: #1B1811;" + "\n"
-                top_bar_lines[132] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[133] = "color: #1B1811;" + "\n"
-                top_bar_lines[203] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[205] = "color: #FEB990;" + "\n"
-                top_bar_lines[149] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[150] = "color: #1B1811;" + "\n"
-                top_bar_lines[307] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[308] = "color: #1B1811;" + "\n"
-                top_bar_lines[323] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[324] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[39] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[41] = "color: #1B1811;" + "\n"
-                top_bar_lines[356] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[357] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[340] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[341] = "color: #1B1811;" + "\n"
-                top_bar_lines[290] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[291] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[273] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[274] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[256] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[257] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[239] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[240] = "color: #FEB990;" + "\n" #icon
-                top_bar_lines[171] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[173] = "color: #FEB990;" + "\n" 
-                top_bar_lines[101] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[102] = "color: #FEB990;" + "\n" 
-                top_bar_lines[84] = "background-color: rgba(137,98,74,0.6);" + "\n"
-                top_bar_lines[85] = "color: #1B1811;" + "\n"
-                top_bar_lines[56] = "color: #FEB990;" + "\n"
-
-            with open(top_bar_css, "w") as top_bar_config:
-                top_bar_config.writelines(top_bar_lines)
-
-            print(cache)
-   
-            
-            x = wallpaperDict[num]
-            subprocess.run(["pkill", "waybar"])
-            subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
-            subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-            
+             num = num + 1
+             x = wallpaperDict[num]
+             subprocess.run(["wal", "-i", x])
+             themeSwitcher()
+             subprocess.run(["pkill", "waybar"])
+             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+             subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+             
             
         
         else:
