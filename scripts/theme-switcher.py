@@ -106,24 +106,33 @@ top_bar_css = "/home/ranger/.config/waybar/style.css"
 vscode_theme = "/home/ranger/.config/Code/User/settings.json"
 ghostty_theme = "/home/ranger/.config/ghostty/config"
 hex_colors = "/home/ranger/.cache/wal/colors"
-
-#this gets the colors from pywal
-with open(hex_colors, "r") as wal_colors:
-    wal_colors_lines = wal_colors.readlines()
-    blurredBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
-    iconBackground  = ImageColor.getcolor(wal_colors_lines[1], "RGB")
-    hoverBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
-    widgetIconBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
-    widgetIconForeground = wal_colors_lines[3].strip()
-    iconForeground = wal_colors_lines[6].strip()
-    textForeground = wal_colors_lines[7].strip()
-    vscodeBackground = wal_colors_lines[0].strip()
-    ghosttyBackground = wal_colors_lines[0].strip()
-    ghosttyForeground = wal_colors_lines[4].strip()
-    hoverForeground = wal_colors_lines[9].strip()
+hyprland = "/home/ranger/.config/hypr/hyprland.conf"
     
 def themeSwitcher():
-    
+    #this gets the colors from pywal
+    with open(hex_colors, "r") as wal_colors:
+        wal_colors_lines = wal_colors.readlines()
+        blurredBackground1 = ImageColor.getcolor(wal_colors_lines[0], "RGB")
+        blurredBackground = blurredBackground1 + (0.7,)
+        iconBackground  = ImageColor.getcolor(wal_colors_lines[3], "RGB")
+        iconBackground = iconBackground + (0.3,)
+        hoverBackground = ImageColor.getcolor(wal_colors_lines[0], "RGB")
+        hoverBackground = hoverBackground + (0.7,)
+        widgetIconBackground = ImageColor.getcolor(wal_colors_lines[5], "RGB")
+        widgetIconBackground = widgetIconBackground + (1.0,)
+        rgba_str = f"rgba({widgetIconBackground[0]}, {widgetIconBackground[1]}, {widgetIconBackground[2]}, {widgetIconBackground[3]})"
+        clean_col = rgba_str.replace(" ", "")
+        widgetIconBackground = clean_col
+        print(widgetIconBackground)
+        widgetIconForeground = wal_colors_lines[0].strip()
+        iconForeground = wal_colors_lines[5].strip()
+        textForeground = wal_colors_lines[15].strip()
+        vscodeBackground = wal_colors_lines[0].strip()
+        ghosttyBackground = wal_colors_lines[0].strip()
+        ghosttyForeground = wal_colors_lines[4].strip()
+        hoverForeground = wal_colors_lines[9].strip()
+        
+        print(blurredBackground)
     with open(bottom_bar_css, 'r') as bottom_bar_config:
         lines = bottom_bar_config.readlines()
         lines[8] = f"background-color: rgba{blurredBackground};" + "\n" #waybarBackground
@@ -153,32 +162,33 @@ def themeSwitcher():
         lines[425] = f"background-color: rgba{iconBackground};" + "\n" #minecraftIconBackground
         lines[442] = f"background-color: rgba{iconBackground};" + "\n" #firefoxIconBackground
         lines[472] = f"background-color: rgba{hoverBackground};" +"\n" #hoverIconBackground
-        lines[31] = f"color:{iconForeground};" + "\n" #vscodeIconForeground
-        lines[48] = f"color:{iconForeground};" + "\n" #yt-musicIconForeground
-        lines[66] = f"color:{iconForeground};" + "\n" #youtubeIconForeground
-        lines[84] = f"color:{iconForeground};" + "\n" #ryujinxIconForeground
-        lines[102] = f"color:{iconForeground};" + "\n" #discordIconForeground
-        lines[119] = f"color:{iconForeground};" + "\n" #steamIconForeground
-        lines[136] = f"color:{iconForeground};" + "\n" #dolphinIconForeground
-        lines[155] = f"color:{iconForeground};" + "\n" #gimpIconForeground
-        lines[172] = f"color:{iconForeground};" + "\n" #kdenliveIconForeground
-        lines[189] = f"color:{iconForeground};" + "\n" #inkscapeIconForeground
-        lines[206] = f"color:{iconForeground};" + "\n" #ghosttyIconForeground
-        lines[223] = f"color:{iconForeground};" + "\n" #unityIconForeground
-        lines[240] = f"color:{iconForeground};" + "\n" #blenderIconForeground
-        lines[257] = f"color:{iconForeground};" + "\n" #libreofficeIconForeground
-        lines[274] = f"color:{iconForeground};" + "\n" #obsIconForeground
-        lines[291] = f"color:{iconForeground};" + "\n" #shortwaveIconForeground
-        lines[308] = f"color:{iconForeground};" + "\n" #obsidianIconForeground
-        lines[324] = f"color:{iconForeground};" + "\n" #godotIconForeground
-        lines[341] = f"color:{iconForeground};" + "\n" #ardourIconForeground
-        lines[358] = f"color:{iconForeground};" + "\n" #btdbattlesIconForeground
-        lines[375] = f"color:{iconForeground};" + "\n" #qt6settingsIconForeground
-        lines[392] = f"color:{iconForeground};" + "\n" #thefinalsIconForeground
-        lines[410] = f"color:{iconForeground};" + "\n" #personaIconForeground
-        lines[427] = f"color:{iconForeground};" + "\n" #minecraftIconForeground
-        lines[444] = f"color:{iconForeground};" + "\n" #firefoxIconForeground
+        lines[31] = f"color:{textForeground};" + "\n" #vscodeIconForeground
+        lines[48] = f"color:{textForeground};" + "\n" #yt-musicIconForeground
+        lines[66] = f"color:{textForeground};" + "\n" #youtubeIconForeground
+        lines[84] = f"color:{textForeground};" + "\n" #ryujinxIconForeground
+        lines[102] = f"color:{textForeground};" + "\n" #discordIconForeground
+        lines[119] = f"color:{textForeground};" + "\n" #steamIconForeground
+        lines[136] = f"color:{textForeground};" + "\n" #dolphinIconForeground
+        lines[155] = f"color:{textForeground};" + "\n" #gimpIconForeground
+        lines[172] = f"color:{textForeground};" + "\n" #kdenliveIconForeground
+        lines[189] = f"color:{textForeground};" + "\n" #inkscapeIconForeground
+        lines[206] = f"color:{textForeground};" + "\n" #ghosttyIconForeground
+        lines[223] = f"color:{textForeground};" + "\n" #unityIconForeground
+        lines[240] = f"color:{textForeground};" + "\n" #blenderIconForeground
+        lines[257] = f"color:{textForeground};" + "\n" #libreofficeIconForeground
+        lines[274] = f"color:{textForeground};" + "\n" #obsIconForeground
+        lines[291] = f"color:{textForeground};" + "\n" #shortwaveIconForeground
+        lines[308] = f"color:{textForeground};" + "\n" #obsidianIconForeground
+        lines[324] = f"color:{textForeground};" + "\n" #godotIconForeground
+        lines[341] = f"color:{textForeground};" + "\n" #ardourIconForeground
+        lines[358] = f"color:{textForeground};" + "\n" #btdbattlesIconForeground
+        lines[375] = f"color:{textForeground};" + "\n" #qt6settingsIconForeground
+        lines[392] = f"color:{textForeground};" + "\n" #thefinalsIconForeground
+        lines[410] = f"color:{textForeground};" + "\n" #personaIconForeground
+        lines[427] = f"color:{textForeground};" + "\n" #minecraftIconForeground
+        lines[444] = f"color:{textForeground};" + "\n" #firefoxIconForeground
         lines[473] = f"color:{hoverForeground};" + "\n" #hoverIconForeground
+        lines[11] = f"border: 2px solid {iconForeground};" + "\n" #waybarBottomBorder
 
     with open(bottom_bar_css, "w") as bottom_bar_config:
         bottom_bar_config.writelines(lines)
@@ -186,105 +196,1566 @@ def themeSwitcher():
     with open(top_bar_css, "r") as top_bar_config:
         top_bar_lines = top_bar_config.readlines()
         top_bar_lines[1] = f"background-color: rgba{blurredBackground};" + "\n"  #windowBackground
-        top_bar_lines[8] = f"background-color: rgba{widgetIconBackground};" + "\n" #workspaceBackground
-        top_bar_lines[52] = f"background-color: rgba{widgetIconBackground};" + "\n" #activeWorkspaceBackground
-        top_bar_lines[81] = f"background-color: rgba{widgetIconBackground};" + "\n" #clockBackground
-        top_bar_lines[101] = f"background-color: rgba{widgetIconBackground};" + "\n" #batteryBackground
-        top_bar_lines[158] = f"background-color: rgba{widgetIconBackground};" + "\n" #networkBackground
-        top_bar_lines[186] = f"background-color: rgba{widgetIconBackground};" + "\n" #customLogoBackground
-        top_bar_lines[222] = f"background-color: rgba{widgetIconBackground};" + "\n" #mprisBackground
-        top_bar_lines[303] = f"background-color: rgba{widgetIconBackground};" + "\n" #wifiIconBackground
-        top_bar_lines[323] = f"background-color: rgba{widgetIconBackground};" + "\n" #customAudioIconBackground
-        top_bar_lines[343] = f"background-color: rgba{widgetIconBackground};" + "\n" #customAudioBackground
-        top_bar_lines[362] = f"background-color: rgba{widgetIconBackground};" + "\n" #customBluetoothBackground
-        top_bar_lines[382] = f"background-color: rgba{widgetIconBackground};" + "\n" #customBluetoothLabelBackground
-        top_bar_lines[402] = f"background-color: rgba{widgetIconBackground};" + "\n" #customClockIconBackground
-        top_bar_lines[422] = f"background-color: rgba{widgetIconBackground};" + "\n" #windowTitleBackground
-        top_bar_lines[443] = f"background-color: rgba{widgetIconBackground};" + "\n" #hyprshotBackground
-        top_bar_lines[464] = f"background-color: rgba{widgetIconBackground};" + "\n" #hyprpickerBackground
-        top_bar_lines[485] = f"background-color: rgba{widgetIconBackground};" + "\n" #customShurikenBackground
-        top_bar_lines[506] = f"background-color: rgba{widgetIconBackground};" + "\n" #customPowerBackground
-        top_bar_lines[9] = f"color:{widgetIconForeground};" + "\n" #workspaceIconForeground
-        top_bar_lines[53] = f"color:{widgetIconForeground};" + "\n" #workspaceActiveIconForeground
-        top_bar_lines[58] = f"color:{widgetIconForeground};" + "\n" #workspaceUrgentIconForeground
-        top_bar_lines[102] = f"color:{widgetIconForeground};" + "\n" #batteryForeground
-        top_bar_lines[304] = f"color:{widgetIconForeground};" + "\n" #wifiIconForeground
-        top_bar_lines[324] = f"color:{widgetIconForeground};" + "\n" #audioIconForeground
-        top_bar_lines[363] = f"color:{widgetIconForeground};" + "\n" #customBluetoothIconForeground
-        top_bar_lines[444] = f"color:{widgetIconForeground};" + "\n" #hyprshotIconForeground
-        top_bar_lines[465] = f"color:{widgetIconForeground};" + "\n" #hyprpickerIconForeground
-        top_bar_lines[486] = f"color:{widgetIconForeground};" + "\n" #shurikenIconForeground
-        top_bar_lines[507] = f"color:{widgetIconForeground};" + "\n" #customPowerIconForeground
-        top_bar_lines[82] = f"color:{textForeground};" + "\n" #clockTextForeground
-        top_bar_lines[159] = f"color:{textForeground};" + "\n" #networkTextForeground
-        top_bar_lines[187] = f"color:{textForeground};" + "\n" #customLogoTextForeground
-        top_bar_lines[223] = f"color:{textForeground};" + "\n" #mprisTextForeground
-        top_bar_lines[344] = f"color:{textForeground};" + "\n" #customAudioTextForeground
-        top_bar_lines[383] = f"color:{textForeground};" + "\n" #customBluetoothLabel
-        
+        top_bar_lines[20] = f"background-color: rgba{iconBackground};" + "\n" #workspaceBackground
+        top_bar_lines[48] = f"background-color: rgba{iconBackground};" + "\n" #activeWorkspaceBackground
+        top_bar_lines[92] = f"background-color: rgba{iconBackground};" + "\n" #clockBackground
+        top_bar_lines[110] = f"background-color: rgba{iconBackground};" + "\n" #batteryBackground
+        top_bar_lines[169] = f"background-color: rgba{iconBackground};" + "\n" #networkBackground
+        top_bar_lines[192] = f"background-color: rgba{iconBackground};" + "\n" #customLogoBackground
+        top_bar_lines[231] = f"background-color: rgba{iconBackground};" + "\n" #mprisBackground
+        top_bar_lines[311] = f"background-color: rgba{iconBackground};" + "\n" #wifiIconBackground
+        top_bar_lines[331] = f"background-color: rgba{iconBackground};" + "\n" #customAudioIconBackground
+        top_bar_lines[350] = f"background-color: rgba{iconBackground};" + "\n" #customAudioBackground
+        top_bar_lines[370] = f"background-color: rgba{iconBackground};" + "\n" #customBluetoothBackground
+        top_bar_lines[390] = f"background-color: rgba{iconBackground};" + "\n" #customBluetoothLabelBackground
+        top_bar_lines[410] = f"background-color: rgba{iconBackground};" + "\n" #customClockIconBackground
+        top_bar_lines[431] = f"background-color: rgba{iconBackground};" + "\n" #windowTitleBackground
+        top_bar_lines[452] = f"background-color: rgba{iconBackground};" + "\n" #hyprshotBackground
+        top_bar_lines[473] = f"background-color: rgba{iconBackground};" + "\n" #hyprpickerBackground
+        top_bar_lines[515] = f"background-color: rgba{iconBackground};" + "\n" #customShurikenBackground
+        top_bar_lines[494] = f"background-color: rgba{iconBackground};" + "\n" #customPowerBackground
+        top_bar_lines[21] = f"color:{iconForeground};" + "\n" #workspaceIconForeground
+        top_bar_lines[49] = f"color:{iconForeground};" + "\n" #workspaceActiveIconForeground
+        top_bar_lines[54] = f"color:{iconForeground};" + "\n" #workspaceUrgentIconForeground
+        top_bar_lines[111] = f"color:{iconForeground};" + "\n" #batteryForeground
+        top_bar_lines[312] = f"color:{iconForeground};" + "\n" #wifiIconForeground
+        top_bar_lines[332] = f"color:{iconForeground};" + "\n" #audioIconForeground
+        top_bar_lines[371] = f"color:{iconForeground};" + "\n" #customBluetoothIconForeground
+        top_bar_lines[453] = f"color:{iconForeground};" + "\n" #hyprshotIconForeground
+        top_bar_lines[474] = f"color:{iconForeground};" + "\n" #hyprpickerIconForeground
+        top_bar_lines[516] = f"color:{iconForeground};" + "\n" #shurikenIconForeground
+        top_bar_lines[495] = f"color:{iconForeground};" + "\n" #customPowerIconForeground
+        top_bar_lines[93] = f"color:{textForeground};" + "\n" #clockTextForeground
+        top_bar_lines[170] = f"color:{textForeground};" + "\n" #networkTextForeground
+        top_bar_lines[193] = f"color:{textForeground};" + "\n" #customLogoTextForeground
+        top_bar_lines[232] = f"color:{textForeground};" + "\n" #mprisTextForeground
+        top_bar_lines[351] = f"color:{textForeground};" + "\n" #customAudioTextForeground
+        top_bar_lines[391] = f"color:{textForeground};" + "\n" #customBluetoothLabel
+        top_bar_lines[432] = f"color:{textForeground};" + "\n" #windowTitleForeground
+        top_bar_lines[16] = f"border: 0px solid {widgetIconForeground};" + "\n" #workspaceButtonBorder
+        top_bar_lines[88] = f"border: 0px solid {widgetIconForeground};" + "\n" #clockBorder
+        top_bar_lines[106] = f"border: 0px solid {widgetIconForeground};" + "\n" #batteryBorder
+        top_bar_lines[163] = f"border-top: 0px solid {widgetIconForeground};" + "\n" #networkBorderTop
+        top_bar_lines[164] = f"border-right: 0px solid {widgetIconForeground};" + "\n" #networkBorderRight
+        top_bar_lines[165] = f"border-bottom: 0px solid {widgetIconForeground};" + "\n" #networkBorderBottom
+        top_bar_lines[188] = f"border: 0px solid {widgetIconForeground};" + "\n" #customLogoBorder
+        top_bar_lines[227] = f"border: 0px solid {widgetIconForeground};" + "\n" #mprisBorder
+        top_bar_lines[305] = f"border-top: 0px solid {widgetIconForeground};" + "\n" #wifiIconTopBorder
+        top_bar_lines[306] = f"border-left: 0px solid {widgetIconForeground};" + "\n" #wifiIconLeftBorder
+        top_bar_lines[307] = f"border-bottom: 0px solid {widgetIconForeground};" + "\n" #wifiIconBottomBorder
+        top_bar_lines[325] = f"border-top: 0px solid {widgetIconForeground};" + "\n" #audioIconTopBorder
+        top_bar_lines[326] = f"border-left: 0px solid {widgetIconForeground};" + "\n" #audioIconLeftBorder
+        top_bar_lines[327] = f"border-bottom: 0px solid {widgetIconForeground};" + "\n" #audioIconBottomBorder
+        top_bar_lines[344] = f"border-top: 0px solid {widgetIconForeground};" + "\n" #audiIconTopBorder
+        top_bar_lines[345] = f"border-right: 0px solid {widgetIconForeground};" + "\n" #audioIconRightBorder
+        top_bar_lines[346] = f"border-bottom: 0px solid {widgetIconForeground};" + "\n" #audioIconBottomBorder
+        top_bar_lines[364] = f"border-top: 0px solid {widgetIconForeground};" + "\n" #customBluetoothTopIconBorder
+        top_bar_lines[365] = f"border-left: 0px solid {widgetIconForeground};" + "\n" #customBluetoothLeftIconBorder
+        top_bar_lines[366] = f"border-bottom: 0px solid {widgetIconForeground};" + "\n" #customBluetoothBottomIconBorder
+        top_bar_lines[384] = f"border-top: 0px solid {widgetIconForeground};" + "\n" #customBluetoothLabelIconTopLabel
+        top_bar_lines[385] = f"border-right: 0px solid {widgetIconForeground};" + "\n" #customBluetoothLabelIconRightLabel
+        top_bar_lines[386] = f"border-bottom: 0px solid {widgetIconForeground};" + "\n" #customBluetoothLabelIconBottomLabel
+        top_bar_lines[427] = f"border: 0px solid {widgetIconForeground};" + "\n" #windowTitleBorder
+        top_bar_lines[448] = f"border: 0px solid {widgetIconForeground};" + "\n" #hyprshotBorder
+        top_bar_lines[469] = f"border: 0px solid {widgetIconForeground};" + "\n" #hyprpickerBorder
+        top_bar_lines[490] = f"border: 0px solid {widgetIconForeground};" + "\n" #customPowerBorder
+        top_bar_lines[511] = f"border: 0px solid {widgetIconForeground};" + "\n" #shurikenBorder
+        top_bar_lines[2] = f"border: 2px solid {iconForeground};" + "\n"
+
     with open(top_bar_css, "w") as top_bar_config:
         top_bar_config.writelines(top_bar_lines)
 
     with open(vscode_theme, "r") as vscode_config:
         vscode_lines = vscode_config.readlines()
-        vscode_lines[155] = f'"editor.background": "{vscodeBackground}",' + "\n" 
-        vscode_lines[156] = f'"activityBar.background": "{vscodeBackground}",' + "\n"
-        vscode_lines[157] = f'"sideBar.background": "{vscodeBackground}",' + "\n"
-        vscode_lines[158] = f'"editorGroupHeader.tabsBackground": "{vscodeBackground}",' + "\n"
+        vscode_lines[155] = f'"editor.background": "{widgetIconForeground}",' + "\n" 
+        vscode_lines[156] = f'"activityBar.background": "{widgetIconForeground}",' + "\n"
+        vscode_lines[157] = f'"sideBar.background": "{widgetIconForeground}",' + "\n"
+        vscode_lines[158] = f'"editorGroupHeader.tabsBackground": "{widgetIconForeground}",' + "\n"
 
     with open(vscode_theme, "w") as vscode_config:
         vscode_config.writelines(vscode_lines)
 
     with open(ghostty_theme, "r") as ghostty_config:
         ghostty_lines = ghostty_config.readlines()
-        ghostty_lines[43] = f'background = "{ghosttyBackground}"' + "\n"
+        ghostty_lines[43] = f'background = "#000000"' + "\n"
         ghostty_lines[44] = f'foreground = "{ghosttyForeground}"' + "\n"
 
     with open(ghostty_theme, "w") as ghostty_config:
         ghostty_config.writelines(ghostty_lines)
 
 
+    with open(hyprland, 'r') as hypr_config:
+        hyprland_lines = hypr_config.readlines()
+    hyprland_lines[100] = f"col.active_border = {clean_col}" + "\n"
+    hyprland_lines[101] = f"col.inactive_border = {clean_col}" + "\n"
+
+    with open(hyprland, 'w') as hypr_config:
+        hypr_config.writelines(hyprland_lines)
+
 def wallpapers():
     
     with open(state, 'r') as state_management:
         wallpaper_state = state_management.readlines()
-        cache = wallpaper_state[0]
+        cache = wallpaper_state[0].strip()
         num = int(cache)
+        
         if num > len(wallpaperDict) or num > 90:
-            num = 0
+            num = 1
             wallpaper_state[0] = str(num)
             with open(state, 'w') as state_management:
                 state_management.writelines(wallpaper_state[0])
-   
+
             x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
             subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-            wallpapers()
             
-        elif num == 47:
-             wallpaper_state[0] = str(num)
-             with open(state, 'w') as state_management:
-                state_management.writelines(wallpaper_state[0])
-             num = num + 1
-             x = wallpaperDict[num]
-             subprocess.run(["wal", "-i", x])
-             themeSwitcher()
-             subprocess.run(["pkill", "waybar"])
-             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
-             subprocess.run(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
-             subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-             
-            
-        
-        else:
+        elif num == 1:
             num = num + 1
             wallpaper_state[0] = str(num)
             with open(state, 'w') as state_management:
                 state_management.writelines(wallpaper_state[0])
-   
-            print(cache)
-   
-            x = wallpaperDict[num]
-            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
-            
 
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 2:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 3:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 4:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 5:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 6:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 7:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 8:  
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 9:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 10:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 11:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 12:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 13:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 14:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 15:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 16: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 17:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 18:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 19:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 20: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 21:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 22:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 23:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 24:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 25:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 26:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 27:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 28:  
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 29:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 30:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 31:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 32:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 33:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 34:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 35:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 36: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 37:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 38:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 39:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 40: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 41:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 42:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 43:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 44:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 45:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 46:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 47:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 48:  
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 49:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 50:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 51:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 52:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 53:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 54:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 55:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 56: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 57:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 58:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 59:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 60: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 61:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 62:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 63:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 64:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 65:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 66:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 67:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 68:  
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 69:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 70:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 71:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 72:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 73:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 74:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 75:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 76: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 77:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 78:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 79:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 80: 
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 81:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 82:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 83:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 84:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 85:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 86:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 87:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 88:  
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 89:
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+        elif num == 90:    
+            num = num + 1
+            wallpaper_state[0] = str(num)
+            with open(state, 'w') as state_management:
+                state_management.writelines(wallpaper_state[0])
+
+            x = wallpaperDict[num]
+
+            subprocess.run(["wal", "-i", x],check=True)
+
+            themeSwitcher()
+
+            subprocess.Popen(["pkill", "waybar"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/bottom_bar.jsonc", "-s", "/home/ranger/.config/waybar/bottom_bar.css"])
+            subprocess.Popen(["waybar", "-c", "/home/ranger/.config/waybar/config.jsonc", "-s", "/home/ranger/.config/waybar/style.css"])
+            subprocess.run(["swww", "img", x, "--transition-step", "10", "--transition-type", "center", "--transition-fps", "120"])
+         
+        
 wallpapers()
